@@ -12,16 +12,28 @@ const connect= mongoose.connect(url, { //Connect to the URL with Mongoose. The f
 connect.then(()=> {
     console.log("Connected correctly to server");
 
+    //We don't need this because we are using the .create() method for models from Mongoose ODM.
     //Extentiate a new document. This campsite with a Capital C is the model that we are extentuating from.
-    const newCampsite= new Campsite({
+    /*const newCampsite= new Campsite({
         name: "React Lake Campground",
         description: "test"
-    });
+    });*/
+
+    
 
     //Save() method that will save the document to the database.  This is a Mongoose Method.  Save() method will return a Promise if the save operation failed or succeded.
     //The document that will be saved will be saved in the Campsite collection
     //In the newCampsite.save() method and all its promises, all the methods are in series.
-    newCampsite.save()
+    //Don't need the .save() method because we are using the .create() method.
+    //newCampsite.save()
+
+
+    //Using a method that is available on the Model from Mongoose ODM called create().
+    //The document created below will be saved in the Campsite collection
+    Campsite.create({
+        name: "React Lake Campground",
+        description: "test"
+    })
     .then(campsite => {
         console.log(campsite); //Console log the saved document
         return Campsite.find(); //This is returning to the model, Campsite.  Find() method will find all documents that are based on this Campsite model.  Returning the results as a Promise.
